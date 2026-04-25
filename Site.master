@@ -1,0 +1,27 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>MeTVe Nostalgia</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/Content/site.css" rel="stylesheet" type="text/css" runat="server" />
+</head>
+<body class="nostalgia">
+    <form id="form1" runat="server">
+        <div class="chrome">
+            <h1>MeTVe Nostalgia</h1>
+            <asp:Label ID="lblUser" runat="server" />
+            <div class="nav">
+                <a href="~/Default.aspx">Home</a>
+                <a href="~/Channels.aspx">Channels</a>
+                <a href="~/TVGuide.aspx">TV Guide</a>
+                <a href="~/Advertise.aspx">Advertise</a>
+                <a href="~/Profile.aspx">Profile</a>
+                <a href="~/Admin/Dashboard.aspx">Admin</a>
+            </div>
+        </div>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </form>
+</body>
+</html>
