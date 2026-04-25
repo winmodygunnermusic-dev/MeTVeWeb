@@ -1,21 +1,13 @@
 <%@ WebService Language="C#" Class="ChannelApi" %>
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Web.Services;
 
 [WebService(Namespace = "http://metve.tv/")]
 public class ChannelApi : WebService
 {
     [WebMethod]
-    public string CreateChannel(string name)
+    public string SaveChannel(string name, string description, string streamUrl)
     {
-        using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MeTVeDb"].ConnectionString))
-        {
-            conn.Open();
-            SqlCommand cmd = new SqlCommand("INSERT INTO Channels (Name, SourceType) VALUES (@name, 'Live')", conn);
-            cmd.Parameters.AddWithValue("@name", name);
-            cmd.ExecuteNonQuery();
-        }
-        return "OK";
+        int id = MeTVeRepository.SaveChannel(name, description, streamUrl, "Live", true);
+        return "OK:" + id;
     }
 }

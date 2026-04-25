@@ -3,24 +3,93 @@ CREATE TABLE Channels (
     Name NVARCHAR(120) NOT NULL,
     Description NVARCHAR(500) NULL,
     StreamUrl NVARCHAR(1000) NULL,
-    SourceType NVARCHAR(40) NOT NULL DEFAULT 'Live'
+    SourceType NVARCHAR(40) NOT NULL DEFAULT 'Playlist',
+    IsLive BIT NOT NULL DEFAULT 0,
+    LastUpdatedUtc DATETIME NOT NULL DEFAULT GETUTCDATE()
+);
+
+CREATE TABLE MediaAssets (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    ChannelId INT NULL,
+    FolderName NVARCHAR(80) NOT NULL,
+    Title NVARCHAR(200) NOT NULL,
+    FilePath NVARCHAR(500) NOT NULL,
+    MediaType NVARCHAR(30) NOT NULL,
+    DurationSeconds INT NULL,
+    IsTemplate BIT NOT NULL DEFAULT 0,
+    CreatedUtc DATETIME NOT NULL DEFAULT GETUTCDATE(),
+    CONSTRAINT FK_MediaAssets_Channels FOREIGN KEY (ChannelId) REFERENCES Channels(Id)
 );
 
 CREATE TABLE Programs (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     ChannelId INT NOT NULL,
     Title NVARCHAR(200) NOT NULL,
+    Description NVARCHAR(1000) NULL,
+    Category NVARCHAR(80) NULL,
     StartTime DATETIME NOT NULL,
     EndTime DATETIME NOT NULL,
     MediaId INT NULL,
-    CONSTRAINT FK_Programs_Channels FOREIGN KEY (ChannelId) REFERENCES Channels(Id)
+    IsFixedTime BIT NOT NULL DEFAULT 0,
+    CONSTRAINT FK_Programs_Channels FOREIGN KEY (ChannelId) REFERENCES Channels(Id),
+    CONSTRAINT FK_Programs_Media FOREIGN KEY (MediaId) REFERENCES MediaAssets(Id)
 );
 
 CREATE TABLE SmsMessages (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Sender NVARCHAR(100) NOT NULL,
+    Country NVARCHAR(80) NULL,
     Body NVARCHAR(500) NOT NULL,
     IsApproved BIT NOT NULL DEFAULT 0,
     IsVip BIT NOT NULL DEFAULT 0,
     CreatedUtc DATETIME NOT NULL DEFAULT GETUTCDATE()
+);
+
+CREATE TABLE ChatMessages (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    ChannelId INT NOT NULL,
+    UserName NVARCHAR(80) NOT NULL,
+    Message NVARCHAR(500) NOT NULL,
+    IsApproved BIT NOT NULL DEFAULT 0,
+    CreatedUtc DATETIME NOT NULL DEFAULT GETUTCDATE(),
+    CONSTRAINT FK_Chat_Channels FOREIGN KEY (ChannelId) REFERENCES Channels(Id)
+);
+
+CREATE TABLE Polls (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    ChannelId INT NOT NULL,
+    Question NVARCHAR(200) NOT NULL,
+    EndsUtc DATETIME NOT NULL,
+    IsActive BIT NOT NULL DEFAULT 1,
+    CONSTRAINT FK_Polls_Channels FOREIGN KEY (ChannelId) REFERENCES Channels(Id)
+);
+
+CREATE TABLE PollVotes (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    PollId INT NOT NULL,
+    OptionKey NVARCHAR(40) NOT NULL,
+    UserName NVARCHAR(80) NOT NULL,
+    VotedUtc DATETIME NOT NULL DEFAULT GETUTCDATE(),
+    CONSTRAINT FK_PollVotes_Polls FOREIGN KEY (PollId) REFERENCES Polls(Id)
+);
+
+CREATE TABLE AsRunLogs (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    ChannelId INT NOT NULL,
+    ProgramId INT NULL,
+    EventType NVARCHAR(40) NOT NULL,
+    LoggedUtc DATETIME NOT NULL DEFAULT GETUTCDATE(),
+    Details NVARCHAR(1000) NULL,
+    CONSTRAINT FK_AsRun_Channels FOREIGN KEY (ChannelId) REFERENCES Channels(Id)
+);
+
+CREATE TABLE AdCampaigns (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    ChannelId INT NOT NULL,
+    CampaignName NVARCHAR(120) NOT NULL,
+    Placement NVARCHAR(40) NOT NULL,
+    Budget DECIMAL(18,2) NOT NULL DEFAULT 0,
+    StartsUtc DATETIME NOT NULL,
+    EndsUtc DATETIME NOT NULL,
+    CONSTRAINT FK_AdCampaigns_Channels FOREIGN KEY (ChannelId) REFERENCES Channels(Id)
 );
