@@ -1,0 +1,14 @@
+body { font-family: Tahoma, Arial, sans-serif; background: #0f1b3d; color: #f2f7ff; margin: 0; }
+.shell { width: 980px; margin: 20px auto; border: 1px solid #87b7ff; background: #192f67; box-shadow: 0 0 15px #3c74d8; }
+.header { padding: 16px; background: linear-gradient(#4d8efe, #2f61be); }
+.header h1 { margin: 0; text-shadow: 0 0 8px #fff; }
+.sub { color: #d9e9ff; }
+.nav { background: #0f2b61; padding: 8px; }
+.nav a { color: #ffdd6b; margin-right: 12px; text-decoration: none; font-weight: bold; }
+.content { padding: 16px; }
+.panel { border: 1px solid #6699dd; background: #122853; padding: 12px; margin-bottom: 12px; }
+.grid { width: 100%; border-collapse: collapse; }
+.grid th, .grid td { border: 1px solid #3f67a8; padding: 6px; }
+label { display:block; margin: 6px 0 2px; }
+input[type=text], input[type=password], textarea, select { width: 100%; padding: 6px; box-sizing: border-box; }
+.btn { background: #ffdd6b; color: #222; border: 1px solid #a68000; padding: 6px 10px; cursor: pointer; }
