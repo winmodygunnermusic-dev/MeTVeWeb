@@ -1,2 +1,6 @@
-<%@ Page Title="SMS Moderation" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" %>
-<asp:Content ID="Body" ContentPlaceHolderID="MainContent" runat="server"><div class="card"><h2>SMS & Chat Queue</h2><p>Approve/reject incoming messages and push VIP messages to ticker.</p></div></asp:Content>
+<%@ Page Title="SMS" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" %>
+<asp:Content runat="server" ContentPlaceHolderID="MainContent">
+<div class="panel"><h2>SMS Moderation</h2>
+<p>Queue + approval + keyword filtering + VIP messages.</p>
+</div>
+</asp:Content>

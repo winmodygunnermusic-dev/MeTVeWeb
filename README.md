@@ -1,32 +1,16 @@
-# MeTVe Nostalgia – Online Television Platform (Web Forms Starter)
+# MeTVe Nostalgia (Legacy + Live Stream Edition)
 
-This repository now contains a Web Forms starter implementation aligned to the requested legacy + live streaming architecture.
+ASP.NET Web Forms scaffold for a cloud-hosted nostalgia TV platform with live streaming, scheduling, and CMS workflows.
 
-## Implemented foundation
+## Included modules
+- Public pages: home, channels, watch, TV guide, login/register/profile, advertise.
+- Admin pages: dashboard, channels, scheduler, media library, SMS moderation, analytics.
+- Legacy-safe channel save API via HTTP (`Admin/Channels.aspx` WebMethod and `Api/ChannelApi.asmx`).
+- SQL schema for channels, EPG programs, and SMS moderation queue.
+- Nostalgia style shell with simple classic gradients and glow accents.
 
-- Public pages:
-  - `Default.aspx`, `Channels.aspx`, `Watch.aspx`, `TVGuide.aspx`
-  - `Login.aspx`, `Register.aspx`, `Profile.aspx`, `Advertise.aspx`
-- Admin/CMS pages:
-  - `Admin/Dashboard.aspx`, `Admin/Channels.aspx`, `Admin/Scheduler.aspx`, `Admin/MediaLibrary.aspx`, `Admin/SMS.aspx`, `Admin/Analytics.aspx`
-- Synchronous channel save API (no socket dependency):
-  - `Services/ChannelService.asmx` + `App_Code/ChannelService.cs`
-- SQL schema starter:
-  - `App_Data/schema.sql`
-- Nostalgia style mode:
-  - `Content/site.css`
-
-## Compatibility notes
-
-- Uses ASP.NET Web Forms primitives, Forms Authentication, Membership and Roles in `Web.config`.
-- Avoids WebSocket requirement; channel creation persists over HTTP/ASMX + SQL.
-- Includes HTML5 `<video>` player plus Windows Media Player object fallback on watch page.
-- `pages controlRenderingCompatibilityVersion="3.5"` set for legacy rendering behavior.
-
-## Next build steps
-
-1. Wire ASP.NET providers to a production SQL Server database.
-2. Add upload handler with chunked upload and optional FFmpeg transcoding pipeline.
-3. Build scheduler editor UI and server-side conflict detector.
-4. Implement SMS ingestion endpoint + moderation workflow + ticker output serialization.
-5. Add XML/JSON EPG export endpoints.
+## Run notes
+1. Create SQL database using `App_Data/schema.sql`.
+2. Update `MeTVeDb` connection string in `Web.config` for IIS/SQL Server.
+3. Enable ASP.NET membership/roles tables (`aspnet_regsql.exe`) for authentication.
+4. Publish to IIS with .NET Framework v4 app pool.

@@ -1,2 +1,6 @@
 <%@ Page Title="Scheduler" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" %>
-<asp:Content ID="Body" ContentPlaceHolderID="MainContent" runat="server"><div class="card"><h2>Scheduler</h2><p>Timeline editor placeholder for fixed-time locking, filler playlists, and conflict alerts.</p></div></asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="MainContent">
+<div class="panel"><h2>Scheduler Engine</h2>
+<p>Timeline editor placeholder for drag-drop clips, filler playlists, and fixed-time locking.</p>
+</div>
+</asp:Content>

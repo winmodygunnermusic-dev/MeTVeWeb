@@ -1,2 +1,6 @@
 <%@ Page Title="Analytics" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" %>
-<asp:Content ID="Body" ContentPlaceHolderID="MainContent" runat="server"><div class="card"><h2>Analytics</h2><p>Campaign stats, channel watch trends, and SMS revenue summary.</p></div></asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="MainContent">
+<div class="panel"><h2>Analytics</h2>
+<p>Track ads, subscriptions, and SMS revenue.</p>
+</div>
+</asp:Content>
